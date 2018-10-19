@@ -1,0 +1,26 @@
+{
+  "name": "vidly",
+  "version": "1.0.0",
+  "description": "Movies Renting App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nayanr9/vidly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nayanr9/vidly/issues"
+  },
+  "homepage": "https://github.com/nayanr9/vidly#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "joi": "^14.0.0",
+    "nodemon": "^1.18.4"
+  },
+  "devDependencies": {}
+}
