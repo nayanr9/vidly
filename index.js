@@ -1,15 +1,16 @@
+const config = require('config');
 const helmet = require('helmet');
+const debug = require('debug')('app:startup');
 const morgan = require('morgan');
 const express = require('express');
 const Joi = require('joi');
 var cors = require('cors');
 const logger = require('./logger');
-const authenticate = require('./authenticator');
 
 const app = express();
 
-console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-console.log(`app: ${app.get('env')}`);
+debug(`NODE_ENV: ${process.env.NODE_ENV}`);
+debug(`app: ${app.get('env')}`);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,9 +19,14 @@ app.use(helmet());
 app.use(cors(
     origin = 'http://localhost:3001'
 ));
+
+//Configuration
+debug('Application Name: ' + config.get('name'));
+debug('Mail Server: ' + config.get('mail.host'));
+
 if (app.get('env') === 'development'){
     app.use(morgan('tiny'));
-    console.log('Morgan Enabled...');
+    debug('Morgan Enabled...');
 }
 
 app.use(logger);
@@ -35,13 +41,13 @@ const genres = [
 ]
 
 app.get('/api/genres', (req, res) => {
-    res.send(JSON.stringify(genres));
+    res.send(genres);
 });
 
 app.get('/api/genres/:id', (req, res) => {
     const genre = genres.find(g => g.id === parseInt(req.params.id));
     if (!genre) return res.status(404).send('The genre with the given ID was not found.');
-    res.send(JSON.stringify(genre));
+    res.send(genre);
 });
 
 function validategenre(genre){
