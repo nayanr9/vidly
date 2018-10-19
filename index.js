@@ -1,14 +1,27 @@
+const helmet = require('helmet');
+const morgan = require('morgan');
 const express = require('express');
 const Joi = require('joi');
+var cors = require('cors');
+const logger = require('./logger');
+const authenticate = require('./authenticator');
 
 const app = express();
 
-app.use(express.json());
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`app: ${app.get('env')}`);
 
-app.use(function(req, res, next){
-    console.log('Logging..');
-    next();
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+app.use(helmet());
+app.use(cors());
+if (app.get('env') === 'development'){
+    app.use(morgan('tiny'));
+    console.log('Morgan Enabled...');
+}
+
+app.use(logger);
 
 const genres = [
     { id: 1, name: 'Comedy' },
@@ -31,7 +44,7 @@ app.get('/api/genres/:id', (req, res) => {
 
 function validategenre(genre){
     const schema = {
-        name: Joi.string().min(3).required()
+        name: Joi.string().min(3).required() 
     };
     return Joi.validate(genre, schema);
 }
