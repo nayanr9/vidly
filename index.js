@@ -5,7 +5,11 @@ const app = express();
 
 app.use(express.json());
 
-const geners = [
+app.use(function(req, res, next){
+    console.log();
+});
+
+const genres = [
     { id: 1, name: 'Comedy' },
     { id: 2, name: 'Romantic' },
     { id: 3, name: 'Action' },
@@ -14,21 +18,21 @@ const geners = [
     { id: 6, name: 'Horror' },
 ]
 
-app.get('/api/geners', (req, res) => {
-    res.send(geners);
+app.get('/api/genres', (req, res) => {
+    res.send(JSON.stringify(genres));
 });
 
-app.get('/api/geners/:id', (req, res) => {
-    const gener = geners.find(g => g.id === parseInt(req.params.id));
-    if (!gener) return res.status(404).send('The gener with the given ID was not found.');
-    res.send(gener);
+app.get('/api/genres/:id', (req, res) => {
+    const genre = genres.find(g => g.id === parseInt(req.params.id));
+    if (!genre) return res.status(404).send('The genre with the given ID was not found.');
+    res.send(JSON.stringify(genre));
 });
 
-function validateGener(course){
+function validategenre(genre){
     const schema = {
         name: Joi.string().min(3).required()
     };
-    return Joi.validate(course, schema);
+    return Joi.validate(genre, schema);
 }
 
 const port = process.env.PORT || 3000;
