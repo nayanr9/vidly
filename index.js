@@ -6,7 +6,8 @@ const app = express();
 app.use(express.json());
 
 app.use(function(req, res, next){
-    console.log();
+    console.log('Logging..');
+    next();
 });
 
 const genres = [
