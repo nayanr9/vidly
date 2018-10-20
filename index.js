@@ -21,6 +21,17 @@ app.use(cors(
     origin = 'http://localhost:3001'
 ));
 
+// const p = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve(1);
+//         // reject(new Error('message'));
+//     }, 2000);
+// });
+
+// p
+//     .then(result => console.log(';jihugyu', result))
+//     .catch(err => console.log('Erroorororojiaohusdyuvror', err.message));
+
 //Configuration
 debug('Application Name: ' + config.get('name'));
 debug('Mail Server: ' + config.get('mail.host'));
