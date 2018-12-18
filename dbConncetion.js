@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/genres')
+mongoose.connect('mongodb://localhost/vidly')
     .then(() => console.log('Connected to mongodb....'))
     .catch(err => console.error('Could not connect to mongodb...', e));
 
@@ -22,10 +22,23 @@ async function createGenre() {
 }
 
 async function getGeners() {
+// eq => equal
+// ne => not equal
+// gt => grater than
+// lt => less than
+// gte/lte = gereate/less than or qual to
+// in
+// nin => not in
+// logical operator .or(), .and()
     const geners = await Gener.find()
         .limit(10)
         .sort({ name: -1 });
     console.log(geners);
 }
+
+const pageNumber = 2;
+const pageSize = 10;
+// /api/geners?pageNumber=2&pageSize=10
+
 
 getGeners();

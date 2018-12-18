@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const logger = require('./middleware/logger');
 const genres = require('./routes/genres');
+const movies = require('./routes/movies');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
 app.use('/api/genres', genres);
+app.use('/api/movies', movies);
 app.use(cors(
     origin = 'http://localhost:3001'
 ));
@@ -43,5 +45,5 @@ if (app.get('env') === 'development'){
 
 app.use(logger);
 
-const port = process.env.PORT || 3000;
+const port = 8080;//process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
